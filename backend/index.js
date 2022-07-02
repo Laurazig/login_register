@@ -12,7 +12,9 @@ const app = express();
 const adapter = new JSONFile("./data/db.json");
 export const db = new Low(adapter);
 //await db.read();
-mongoose.connect("mongodb://localhost:27017/albums-project")  //mongodb+srv://n42:<password>@cluster0.r46gvie.mongodb.net/?retryWrites=true&w=majority
+mongoose.connect("mongodb://localhost:27017/albums-project")  
+//mongodb+srv://n42:<password>@cluster0.r46gvie.mongodb.net/?retryWrites=true&w=majority
+//mongodb+srv://n42:<password>@cluster0.r46gvie.mongodb.net/?retryWrites=true&w=majority
 mongoose.connection.on("open", ()=> console.log("Database  connection established"));
 mongoose.connection.on("error",()=> console.error);
 

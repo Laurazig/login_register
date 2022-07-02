@@ -19,9 +19,6 @@ export const getUserData = async (req, res, next) => {
     try {
         foundUser = await User.findOne({_id:userId})
     } catch {
-        // const error= new Error("could not query database. Please try again");
-        //     error.statusCode=500;
-        //     return next(error);
         return next(createError(500, "user could not be create(hello http-errors!). Please try again"));
     }
 
@@ -40,9 +37,6 @@ export const getUserData = async (req, res, next) => {
     // If no user was found with the same id as the :id parameter...
     // Create an error object with a relevant message and statusCode, and pass it to the error handling middleware
     } else {
-        // const err = new Error("User could not be found");
-        // err.statusCode = 404;
-        // next(err);
         next(new createError.InternalServerError("user could not be created. Please try again"))
     }
 }
