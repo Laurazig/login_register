@@ -88,32 +88,41 @@ export const postAlbum = async (req, res, next) => {
 }
 
 // =======================================================
-// DELETE all albums from the logged in user's "albums" list
+// DELETE all albums from the logged in user's "albums" list  02.06.22
 // ==========================================================
 
 export const deleteAlbums = async (req, res, next) => {
     const userId = req.params.id;
 
-   // const indexOfUser = db.data.users.findIndex(user => user.id === userId);
-   let indexOfUser;
-   try {
-       indexOfUser = await User.findIndex({_id:userId})
-   } catch {
-       return next(new createError.InternalServerError("delete error"));
-   }
-    // If the user exists in the db...
-    if (indexOfUser > -1) {
-        db.data.users[indexOfUser].albums = [];
-
-        await db.write();
-    
-        res.json(db.data.users[indexOfUser].albums);
-    
-    // If the user does not exist in the db...
-    // Create an error object with a relevant message and statusCode, and pass it to the error handling middleware
-    } else {
-        const err = new Error("User could not be found");
-        err.statusCode = 404;
-        next(err);
+    let updatedUser;
+    try {
+        updatedUser = await User.findByIdAndUpdate(userId, { albums:[] }, { new: true, runValidators:true})
+    } catch {
+        return next(createError(500, "User could not be updated (usersController.js)"))
     }
+    res.json(updatedUser.courses);
 }
+
+
+   // const indexOfUser = db.data.users.findIndex(user => user.id === userId);
+//    let indexOfUser;
+//    try {
+//        indexOfUser = await User.findIndex({_id:userId})
+//    } catch {
+//        return next(new createError.InternalServerError("delete error"));
+//    }
+//     // If the user exists in the db...
+//     if (indexOfUser > -1) {
+//         db.data.users[indexOfUser].albums = [];
+
+//         await db.write();
+    
+//         res.json(db.data.users[indexOfUser].albums);
+    
+//     // If the user does not exist in the db...
+//     // Create an error object with a relevant message and statusCode, and pass it to the error handling middleware
+//     } else {
+//         const err = new Error("User could not be found");
+//         err.statusCode = 404;
+//         next(err);
+//     }
