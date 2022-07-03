@@ -1,20 +1,20 @@
 import express from "express";
 import cors from "cors";
-import { Low, JSONFile } from "lowdb";
+import { Low, JSONFile } from "lowdb";   //remove
 import morgan from "morgan";
 import mongoose from "mongoose"
 import globalErrorHandler from "./middleware/globalErrorHandler.js";
 import registerRouter from "./routes/register.js";
 import loginRouter from "./routes/login.js";
 import usersRouter from "./routes/users.js";
+
 const app = express();
-// Lowdb
+// Lowdb  remove
 const adapter = new JSONFile("./data/db.json");
 export const db = new Low(adapter);
-//await db.read();
-mongoose.connect("mongodb://localhost:27017/albums-project")  
-//mongodb+srv://n42:<password>@cluster0.r46gvie.mongodb.net/?retryWrites=true&w=majority
-//mongodb+srv://n42:<password>@cluster0.r46gvie.mongodb.net/?retryWrites=true&w=majority
+
+mongoose.connect("mongodb://localhost:27017/albums-project")  //connecting to compass   25.05.22
+//mongoose.connect("mongodb+srv://{process.env.DB_USERNAME}:{process.env.DB_PASSWORD}@cluster0.r46gvie.mongodb.net/{process.env.DB_NAME}?retryWrites=true&w=majority")   // connecting to atlas 09.06.22
 mongoose.connection.on("open", ()=> console.log("Database  connection established"));
 mongoose.connection.on("error",()=> console.error);
 
