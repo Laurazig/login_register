@@ -17,7 +17,7 @@ export const getUserData = async (req, res, next) => {
         // foundUser = await User.findOne({_id:userId})
         foundUser = await User.findById(userId);
     } catch {
-        return next(createError(500, "findById -user could not be created (http-errors in userController)"));
+        return next(createError(500, "findById -user could not be created (http-errors in userController) usersController"));
     }
 
     // If a user was found with the same id as the :id parameter...
